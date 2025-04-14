@@ -8,24 +8,29 @@
 
 using namespace std;
 
-struct CpuStats {
+struct CpuStats 
+{
     long long user, nice, system, idle, iowait, irq, softirq, steal;
 
-    long long total() const {
+    long long total() const 
+    {
         return user + nice + system + idle + iowait + irq + softirq + steal;
     }
 
-    long long idleTime() const {
+    long long idleTime() const 
+    {
         return idle + iowait;
     }
 };
 
-CpuStats getCpuStats() {
+CpuStats getCpuStats() 
+{
     ifstream file("/proc/stat");
     string line;
     CpuStats stats = {0};
 
-    if (getline(file, line)) {
+    if (getline(file, line)) 
+    {
         istringstream ss(line);
         string cpu;
         ss >> cpu;
@@ -36,7 +41,8 @@ CpuStats getCpuStats() {
     return stats;
 }
 
-float getCpuUsage() {
+float getCpuUsage() 
+{
     CpuStats stat1 = getCpuStats();
     this_thread::sleep_for(chrono::milliseconds(500));
     CpuStats stat2 = getCpuStats();
@@ -47,20 +53,23 @@ float getCpuUsage() {
     return 100.0f * (1.0f - (float)idleDiff / totalDiff);
 }
 
-void getMemoryUsage(long long &totalMem, long long &freeMem) {
+void getMemoryUsage(long long &totalMem, long long &freeMem) 
+{
     ifstream file("/proc/meminfo");
     string label;
     long long value;
     string unit;
 
-    while (file >> label >> value >> unit) {
+    while (file >> label >> value >> unit) 
+    {
         if (label == "MemTotal:") totalMem = value;
         if (label == "MemAvailable:") freeMem = value;
     }
 }
 
 int main() {
-    while (true) {
+    while (true)
+    {
         float cpu = getCpuUsage();
 
         long long totalMem = 0, freeMem = 0;
