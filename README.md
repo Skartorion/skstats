@@ -1,6 +1,6 @@
 # SKstats
 
-optimized terminal system stat viewer for unix
+light-weight terminal system stat viewer for unix
 
 # Roadmap
 
