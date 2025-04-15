@@ -67,7 +67,8 @@ void getMemoryUsage(long long &totalMem, long long &freeMem)
     }
 }
 
-int main() {
+int main() 
+{
     while (true)
     {
         float cpu = getCpuUsage();
@@ -76,10 +77,14 @@ int main() {
         getMemoryUsage(totalMem, freeMem);
         long long usedMem = totalMem - freeMem;
 
+        
+
         cout << "CPU Usage: " << cpu << "%" << endl;
         cout << "Memory Usage: " << usedMem / 1024 << " MB / " << totalMem / 1024 << " MB" << endl;
         cout << "-----------------------------" << endl;
-
+        
+        cout << "\033[2J\033[1;1H";
+        
         this_thread::sleep_for(chrono::seconds(1));
     }
 
